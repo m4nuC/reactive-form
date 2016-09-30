@@ -34,8 +34,8 @@ export default (Comp) => {
       let formData = {};
 
       for(let [key, input] of Object.entries(this.refs.wrappedForm.refs)) {
-        const _wrappedInput = input.getWrappedInput;
-        formData[key] = _wrappedInput.props.getValue();
+        const _wrappedInput = input.refs.wrappedInput;
+        formData[key] = _wrappedInput.props.value;
       }
       return formData;
     }
