@@ -8,7 +8,7 @@ var ip = 'localhost';
 
 var server = new WebpackDevServer(webpack(config), {
   publicPath: "/dist/", // <- Where the memory build comes from
-  contentBase: "./examples/", //<- Where the html comes from
+  contentBase: "./examples/basic", //<- Where the html comes from
   headers: { 'Access-Control-Allow-Origin': '*' },
   historyApiFallback: true,
   stats: { colors: true },

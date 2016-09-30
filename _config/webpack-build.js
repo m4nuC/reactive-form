@@ -3,13 +3,13 @@ var webpack = require("webpack");
 var BUILD_FOLDER = __dirname + "/../dist";
 
 module.exports = {
-  PUBLIC_FOLDER: '../dist',
+  PUBLIC_FOLDER: '../examples/basic/',
   context: __dirname,
-  entry: "../src/index",
+  entry: "../examples/basic/index",
   output: {
     path: BUILD_FOLDER,
     publicPath: BUILD_FOLDER,
-    filename: "index.js",
+    filename: "bundle.js",
     libraryTarget: "commonjs"
   },
 

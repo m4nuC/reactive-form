@@ -3,14 +3,9 @@
  * @todo rewrite and extrat and open source this.
  */
 import React, { Component } from 'react';
-import { h } from 'utils';
-import {utils as fp} from 'jsfp';
-import { connect } from 'react-redux';
 
-export default (Comp, name, refs) => {
-  if ( ! name || name == '' ) {
-    throw new Error('The form name was omited when using connectForm()');
-  }
+export default (Comp, refs) => {
+
   if ( ! refs || refs.legnth === 0 ) {
     throw new Error('No form elements were passed to connectForm()');
   }

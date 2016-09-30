@@ -6,7 +6,7 @@ module.exports = {
   context: __dirname + "/..",
   debug: true,
   devtool: 'source-map',
-  entry: "./src/main",
+  entry: "./examples/basic/index.js",
   output: {
     path: "/dist/",
     filename: "bundle.js",
