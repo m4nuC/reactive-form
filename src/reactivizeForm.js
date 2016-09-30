@@ -4,11 +4,7 @@
  */
 import React, { Component } from 'react';
 
-export default (Comp, refs) => {
-
-  if ( ! refs || refs.legnth === 0 ) {
-    throw new Error('No form elements were passed to connectForm()');
-  }
+export default (Comp) => {
 
   class FormWrapper extends Component {
     constructor(props) {
