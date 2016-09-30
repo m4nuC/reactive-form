@@ -70,7 +70,8 @@ export default (Comp) => {
           setFormData={(data) => this.setFormData(data)}
           displayErrors={ this.state.displayErrors }
           showErrors={() => this.showErrors() }
-          getFormData={() => this.getFormData()}/>
+          getFormData={() => this.getFormData()}
+          {...this.props}/>
       )
     }
   }
