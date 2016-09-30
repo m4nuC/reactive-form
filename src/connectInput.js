@@ -81,7 +81,7 @@ export default (Comp) => class Validable extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        value: props.defaultValue || null
+        value: props.value || null
       }
     }
 
@@ -103,7 +103,10 @@ export default (Comp) => class Validable extends Component {
 
     // Filter out the errors and flatten result
     let filterAndFlatten = fp.compose(fp.map((input) => input.error), fp.filter((input) => input.error));
-    return filterAndFlatten(this.validator(this.getValue()));
+    const errors = filterAndFlatten(this.validator(this.getValue()));
+
+    if( this.props.error ) errors.unshift(this.props.error)
+    return errors;
   }
 
   getValue() {
@@ -145,7 +148,6 @@ export default (Comp) => class Validable extends Component {
   }
 
   render() {
-    //console.log('makeValidable render: ', this)
     const {
       mandatory,
       displayErrors,

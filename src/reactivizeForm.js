@@ -38,7 +38,7 @@ export default (Comp, refs) => {
       let formData = {};
 
       for(let [key, input] of Object.entries(this.refs.wrappedForm.refs)) {
-        const _wrappedInput = input.refs.wrappedInput;
+        const _wrappedInput = input.getWrappedInput;
         formData[key] = _wrappedInput.props.getValue();
       }
       return formData;
@@ -52,7 +52,6 @@ export default (Comp, refs) => {
      */
     isValid() {
       for(let [key, input] of Object.entries(this.refs.wrappedForm.refs)) {
-        console.log(input)
         const _wrappedInput = input.refs.wrappedInput;
         const errors = _wrappedInput.props.getErrors();
         if (errors.length > 0) {
