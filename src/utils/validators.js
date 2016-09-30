@@ -67,13 +67,11 @@ module.exports.minSize6 = (string) => {
   return string.length >= 6;
 }
 
-module.exports.isPhone = (string) => {
-  if (typeof string === 'object') {
-    string = string.number
-  }
-  const re = /^[0-9\-\s\.]{7,22}$/
-  return re.test(string);
-}
+module.exports.isPhone = (numberObj) => {
+  if (!numberObj || !numberObj.prefix || !numberObj.number) return false;
+  var re = /^[0-9\-\s\.]{7,22}$/;
+  return re.test(numberObj.number);
+};
 
 module.exports.isRequiered = (value) => {
   return Array.isArray(value) ? value.length > 0 : value && value !== '';
