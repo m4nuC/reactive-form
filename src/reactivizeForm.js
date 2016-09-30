@@ -52,6 +52,7 @@ export default (Comp, refs) => {
      */
     isValid() {
       for(let [key, input] of Object.entries(this.refs.wrappedForm.refs)) {
+        console.log(input)
         const _wrappedInput = input.refs.wrappedInput;
         const errors = _wrappedInput.props.getErrors();
         if (errors.length > 0) {

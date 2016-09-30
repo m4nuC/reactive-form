@@ -2,13 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { connectInput, reactivizeForm } from '../../src/';
 
-const Button = ({label, onClick}) => {
-  return(
-    <button onClick={onClick}>
-        { label }
-    </button>
-  );
-}
+
 
 class TextInput extends Component {
 
@@ -43,6 +37,7 @@ class SimpleForm extends Component {
     super(props);
   }
 
+  // Handle the form submition like you normally would
   handleSubmit(e) {
     e.preventDefault();
     if (this.props.isValid()) {
@@ -51,7 +46,6 @@ class SimpleForm extends Component {
     } else {
       this.props.showErrors();
     }
-
   }
 
   render() {
@@ -59,15 +53,10 @@ class SimpleForm extends Component {
     return(
       <form className="login-form form-control"
           onSubmit={ (e) => this.handleSubmit(e) }>
-
-        <div className="form-row">
-          <WrappedTextInput ref="simpleInput"
-            defaultValue="I am a default value"
-            validate={['required']}
-            displayErrors={displayErrors}/>
-        </div>
-
-        <Button type="submit" label="validate" className="btn" />
+        <WrappedTextInput ref="simpleInput"
+          validate={['required']}
+          displayErrors={displayErrors}/>
+        <button type="submit">Validate</button>
       </form>
     )
   }
