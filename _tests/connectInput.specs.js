@@ -21,7 +21,7 @@ class TextInput extends React.Component {
 describe('connectInput()', function() {
   it ('should retrun a Validable HOC', function (done) {
     const hoc = connectInput(TextInput);
-    expect(hoc.name).to.be('Validable');
+    expect(hoc.name).to.equal('Validable');
     done();
   });
 });
