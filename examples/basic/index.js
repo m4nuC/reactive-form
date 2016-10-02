@@ -53,7 +53,6 @@ class SimpleForm extends Component {
       <form className="login-form form-control"
           onSubmit={ (e) => this.handleSubmit(e) }>
         <WrappedTextInput ref="simpleInput"
-            error="this is a backend error"
             value="I am a default value"
             validate={['required']}
             displayErrors={displayErrors}/>

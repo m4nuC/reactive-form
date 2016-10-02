@@ -22,6 +22,7 @@ const chain = fp.curry((array, value) => {
   return array.map((f) => f(value));
 });
 
+
 const getValidationFunction = (validateProp) => {
   const correspondance = {
     'email' : 'isEmail',
@@ -70,6 +71,13 @@ const makeValidator = (validator, error) => (value) =>  validator(value) || ({
   error: error
 });
 
+
+const defaultOpt = {
+  className: 'form-item',
+  mandatoryClassName: 'mandatory',
+}
+
+
 /**
  * HOC that enabled validation on a field
  * @param  {[type]} Comp [description]
@@ -77,12 +85,13 @@ const makeValidator = (validator, error) => (value) =>  validator(value) || ({
  *
  */
 
-export default (Comp) => class Validable extends Component {
+export default (Comp, opt = {}) => class Validable extends Component {
     constructor(props) {
       super(props);
       this.state = {
         value: props.value || undefined
       }
+      this._options = Object.assign({}, defaultOpt, opt);
     }
 
   /**
@@ -154,7 +163,7 @@ export default (Comp) => class Validable extends Component {
       style
     } = this.props;
 
-    const className = `form-item ${mandatory ? 'mandatory' : ''}`;
+    const className = `${this._options.className} ${mandatory ? this._options.mandatoryClassName : ''}`;
     const errors = this.getErrors(this.getValue());
     const showErrors = errors.length > 0 && displayErrors;
 

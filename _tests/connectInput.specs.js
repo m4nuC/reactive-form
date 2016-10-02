@@ -24,4 +24,18 @@ describe('connectInput()', function() {
     expect(hoc.name).to.equal('Validable');
     done();
   });
+
+  it ('should take an option object and merge it with default options', function (done) {
+    const HOC = connectInput(TextInput, {className: 'testName'});
+    const wrapper = shallow(<HOC />);
+    expect(wrapper.find('.testName')).to.have.length(1);
+    done();
+  });
+
+  it ('should set default value if any', function (done) {
+    const HOC = connectInput(TextInput, null);
+    const wrapper = shallow(<HOC value="testValue"/>);
+    expect(wrapper.state('value')).to.equal('testValue');
+    done();
+  });
 });
