@@ -121,11 +121,12 @@ export default (Comp, opt = {}) => class Validable extends Component {
   }
 
   getValue() {
-    return this.state.value ? this.state.value : this.props.defaultValue || null;
+    return this.state.value;
   }
 
   isValid() {
-    return this.getErrors(this.getValue());
+    const errors = this.getErrors(this.getValue());
+    return errors && errors.length > 0
   }
 
   componentWillMount() {
