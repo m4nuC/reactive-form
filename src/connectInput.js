@@ -126,7 +126,7 @@ export default (Comp, opt = {}) => class Validable extends Component {
 
   isValid() {
     const errors = this.getErrors(this.getValue());
-    return errors && errors.length > 0
+    return errors && errors.length === 0
   }
 
   componentWillMount() {
