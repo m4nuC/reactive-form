@@ -1,6 +1,6 @@
 {
   "name": "reactive-form",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Simple form management for react",
   "main": "lib/index.js",
   "scripts": {
