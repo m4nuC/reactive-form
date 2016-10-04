@@ -125,33 +125,51 @@ export default (Comp, opt = {}) => class Validable extends Component {
   }
 
   componentWillMount() {
+
+    let validators = null;
+
     // If we have valdation rules on this Component we need to generate the validators
     if ( this.props.validate && this.props.validate.length > 0 ) {
 
       // Create an array of validator function according to the validate prop rules
-      const validators = this.props.validate.map((prop) => makeValidator(
+      validators = this.props.validate.map((prop) => makeValidator(
         getValidationFunction(prop),
         getErrorMsgId(prop))
       );
+
+      // if opt.defaultValidator.function exits then use it
+      if (opt.defaultValidator && opt.defaultValidator.validationFunction ) {
+        validators.push(
+          makeValidator(
+            opt.defaultValidator.validationFunction,
+            opt.defaultValidator.errorMessage
+          )
+        )
+      }
 
       if (this.props.validate.indexOf('required') === -1 ) {
         // If a field is not requiered but has other validation on it,
         // it should not trigger validation when no value are filled in
         this.validator = fp.compose(chain( validators ), makeDownstreamValidatorAgreable)
-
-      } else {
-
-        // Chain all validators
-        this.validator = chain( validators );
       }
 
     // Else we make an agreableValidator. This allow to keep behvior in
     // between validable and non validable field similar
     } else {
-      this.validator = agreableValidator;
+      validators = [agreableValidator];
+      // if opt.defaultValidator.validationFunction exits then use it
+      if (opt.defaultValidator && opt.defaultValidator.validationFunction ) {
+        validators.push(
+          makeValidator(
+            opt.defaultValidator.validationFunction,
+            opt.defaultValidator.errorMessage
+          )
+        )
+      }
     }
 
-    //console.log('makeValidable will mount: ', this)
+    // Chain all validators
+    this.validator = chain( validators );
   }
 
   propagateValue(value) {

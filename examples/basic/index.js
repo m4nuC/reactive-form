@@ -27,8 +27,11 @@ class TextInput extends Component {
     );
   }
 }
-
-const WrappedTextInput = connectInput(TextInput);
+const defaultValidator = {
+  validationFunction: value => value !== 'test',
+  errorMessage: 'the value should not be equal to "test"'
+}
+const WrappedTextInput = connectInput(TextInput, {defaultValidator});
 
 
 class SimpleForm extends Component {
@@ -54,7 +57,6 @@ class SimpleForm extends Component {
           onSubmit={ (e) => this.handleSubmit(e) }>
         <WrappedTextInput ref="simpleInput"
             value="I am a default value"
-            validate={['required']}
             displayErrors={displayErrors}/>
         <button type="submit">Validate</button>
       </form>
