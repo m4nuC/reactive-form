@@ -197,7 +197,7 @@ export default (Comp, opt = {}) => class Validable extends Component {
         <Comp ref="wrappedInput"
           {...this.props}
           value={this.getValue()}
-          isValid={this.isValid()}
+          isValid={() => this.isValid()}
           propagateValue={ (value) => this.propagateValue(value) }
           showErrors={ showErrors }
           getValue={ () => this.getValue() }
