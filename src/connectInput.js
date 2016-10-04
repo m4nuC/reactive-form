@@ -38,7 +38,8 @@ const getValidationFunction = (validateProp) => {
     isDocOrImageFile: 'isDocOrImageFile',
     fileSize2: 'fileSize2',
     enabled: 'enabled',
-    'float': 'isFloat'
+    'float': 'isFloat',
+    'url': 'isURL'
   }
   if ( ! validators[correspondance[validateProp]] ) throw new Error( validateProp + ' validator does not exist. Check makeValidable()' );
   return validators[correspondance[validateProp]];
