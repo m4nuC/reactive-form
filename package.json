@@ -6,7 +6,7 @@
   "scripts": {
     "dist:lib": "babel src --out-dir lib",
     "dist": "npm run build:lib && npm run build:umd && npm run build:umd:min && node ./prepublish",
-    "prepublish": "npm run build:lib",
+    "prepublish": "npm run dist:lib",
     "cover2": "babel-node ./node_modules/istanbul/lib/cli.js --include-all-sources cover ./node_modules/.bin/_mocha -- ./tests/ -R spec --recursive",
     "cover": "babel-node  ./node_modules/.bin/babel-istanbul cover --config _tests/istanbul.yml --report html  node_modules/mocha/bin/_mocha _tests/**/*.specs.js",
     "start": "node ./_config/webpack.dev-server.js",
