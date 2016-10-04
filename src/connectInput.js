@@ -124,6 +124,10 @@ export default (Comp, opt = {}) => class Validable extends Component {
     return this.state.value ? this.state.value : this.props.defaultValue || null;
   }
 
+  isValid() {
+    return this.getErrors(this.getValue());
+  }
+
   componentWillMount() {
 
     let validators = null;
@@ -192,6 +196,7 @@ export default (Comp, opt = {}) => class Validable extends Component {
         <Comp ref="wrappedInput"
           {...this.props}
           value={this.getValue()}
+          isValid={this.isValid()}
           propagateValue={ (value) => this.propagateValue(value) }
           showErrors={ showErrors }
           getValue={ () => this.getValue() }

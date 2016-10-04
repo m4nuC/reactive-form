@@ -4,7 +4,7 @@
   "description": "Simple form management for react",
   "main": "lib/index.js",
   "scripts": {
-    "dist:lib": "babel src --out-dir lib",
+    "dist:lib": "./node_modules/babel-cli/bin/babel.js src --out-dir lib",
     "dist": "npm run build:lib && npm run build:umd && npm run build:umd:min && node ./prepublish",
     "prepublish": "npm run dist:lib",
     "cover2": "babel-node ./node_modules/istanbul/lib/cli.js --include-all-sources cover ./node_modules/.bin/_mocha -- ./tests/ -R spec --recursive",
@@ -25,6 +25,7 @@
     "glob": "^7.1.0",
     "istanbul": "^1.0.0-alpha.2",
     "jsfp": "^0.1.0",
+    "lodash": "^4.16.3",
     "react": "^15.0.1",
     "react-addons-test-utils": "^15.3.2",
     "react-dom": "^15.0.1",
