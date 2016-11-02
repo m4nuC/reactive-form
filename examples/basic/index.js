@@ -56,6 +56,8 @@ class SimpleForm extends Component {
       <form className="login-form form-control"
           onSubmit={ (e) => this.handleSubmit(e) }>
         <WrappedTextInput ref="simpleInput"
+            validate={['required']}
+            //maxChars={30}
             value="I am a default value"
             displayErrors={displayErrors}/>
         <button type="submit">Validate</button>

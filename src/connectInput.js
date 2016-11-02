@@ -22,7 +22,6 @@ const chain = fp.curry((array, value) => {
   return array.map((f) => f(value));
 });
 
-
 const getValidationFunction = (validateProp) => {
   const correspondance = {
     'email' : 'isEmail',
@@ -88,13 +87,17 @@ const defaultOpt = {
  */
 
 export default (Comp, opt = {}) => class Validable extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        value: props.value || undefined
-      }
-      this._options = Object.assign({}, defaultOpt, opt);
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.value || undefined
     }
+    this._options = Object.assign({}, defaultOpt, opt);
+  }
+
+  reachedMaxChars(value) {
+    return this.props.maxChars && this.props.maxChars < value.length
+  }
 
   /**
    * Runs the validtion
@@ -126,7 +129,8 @@ export default (Comp, opt = {}) => class Validable extends Component {
 
   isValid() {
     const errors = this.getErrors(this.getValue());
-    return errors && errors.length === 0
+    return errors && errors.length === 0;
+
   }
 
   componentWillMount() {
@@ -178,31 +182,35 @@ export default (Comp, opt = {}) => class Validable extends Component {
   }
 
   propagateValue(value) {
-    this.setState({value})
+    if ( ! this.reachedMaxChars(value) ) {
+      this.setState({value})
+    }
   }
 
   render() {
     const {
       mandatory,
       displayErrors,
+      maxChars,
       style
     } = this.props;
 
     const className = `${this._options.className} ${mandatory ? this._options.mandatoryClassName : ''}`;
     const errors = this.getErrors(this.getValue());
     const showErrors = errors.length > 0 && displayErrors;
-
+    const value = this.getValue();
     return (
       <div className={className} style={style}>
         <Comp ref="wrappedInput"
           {...this.props}
-          value={this.getValue()}
+          value={value}
           isValid={() => this.isValid()}
           propagateValue={ (value) => this.propagateValue(value) }
           showErrors={ showErrors }
           getValue={ () => this.getValue() }
           getErrors={ () => this.getErrors() }/>
 
+        { maxChars ? renderCharCount(maxChars, value.length) : '' }
         { showErrors ? renderErrorMessage(errors) : '' }
       </div>
     )
