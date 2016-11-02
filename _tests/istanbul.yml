@@ -1,4 +1,4 @@
 instrumentation:
   excludes:
-    - '*.spec.js'
+    - '*.specs.js'
     - 'dist/*'
