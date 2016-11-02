@@ -39,12 +39,11 @@ describe('connectInput()', function() {
     done();
   });
 
-
-  it ('should set a default agreable validator is no validation method is specified', function (done) {
+  it ('validation should always pass if no validation method is specified', function (done) {
     const HOC = connectInput(TextInput, null);
     const wrapper = shallow(<HOC value="testValue"/>);
     const instance = wrapper.instance();
-    expect(instance._reactInternalInstance._instance.validator.name).to.equal('agreableValidator');
+    expect(instance._reactInternalInstance._instance.getErrors().length).to.equal(0);
     done();
   });
 });

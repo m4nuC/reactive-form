@@ -146,12 +146,12 @@ export default (Comp, opt = {}) => class Validable extends Component {
         getErrorMsgId(prop))
       );
 
-      // if opt.defaultValidator.function exits then use it
-      if (opt.defaultValidator && opt.defaultValidator.validationFunction ) {
+      // if this._options.defaultValidator.function exits then use it
+      if (this._options.defaultValidator && this._options.defaultValidator.validationFunction ) {
         validators.push(
           makeValidator(
-            opt.defaultValidator.validationFunction,
-            opt.defaultValidator.errorMessage
+            this._options.defaultValidator.validationFunction,
+            this._options.defaultValidator.errorMessage
           )
         )
       }
@@ -166,12 +166,12 @@ export default (Comp, opt = {}) => class Validable extends Component {
     // between validable and non validable field similar
     } else {
       validators = [agreableValidator];
-      // if opt.defaultValidator.validationFunction exits then use it
-      if (opt.defaultValidator && opt.defaultValidator.validationFunction ) {
+      // if this._options.defaultValidator.validationFunction exits then use it
+      if (this._options.defaultValidator && this._options.defaultValidator.validationFunction ) {
         validators.push(
           makeValidator(
-            opt.defaultValidator.validationFunction,
-            opt.defaultValidator.errorMessage
+            this._options.defaultValidator.validationFunction,
+            this._options.defaultValidator.errorMessage
           )
         )
       }
