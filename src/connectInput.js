@@ -136,10 +136,10 @@ export default (Comp, opt = {}) => class Validable extends Component {
     if ( this.props.validate && this.props.validate.length > 0 ) {
 
       // Create an array of validator function according to the validate prop rules
-      validators = this.props.validate.map((prop) => {
+      validators = this.props.validate.map( prop => {
         const message = this._options.errorFormatter ? this._options.errorFormatter(this._errorMessages[prop]) : this._errorMessages[prop];
         return makeValidator( getValidationFunction(prop), message )
-      }
+      })
 
       // if this._options.defaultValidator.function exits then use it
       if (this._options.defaultValidator && this._options.defaultValidator.validationFunction ) {
