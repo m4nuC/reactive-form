@@ -44,27 +44,21 @@ const getValidationFunction = (validateProp) => {
   return validators[correspondance[validateProp]];
 }
 
-const getErrorMsgId = (validateProp) => {
-  const correspondance = {
-    'email' : 'forms.errors.email',
-    'alpha-num' : 'forms.errors.alphaNum',
-    'required' : 'forms.errors.required',
-    'num' : 'forms.errors.num',
-    'int' : 'forms.errors.integer_only',
-    'float' : 'forms.errors.num',
-    'enabled': 'forms.errors.no_enabled_value',
-    'phone' : 'forms.errors.phone',
-    'min:6' : 'forms.errors.min_size6',
-    'fileSize': 'forms.errors.file_too_large',
-    'isImage' : 'forms.errors.not_image',
-    'isURL' : 'forms.errors.URL_not_valid',
-    'isDocOrImageFile': 'forms.errors.not_doc_or_image',
-    file_too_large2: 'forms.errors.file_too_large2',
-  }
-   const message = correspondance[validateProp];
-
-  if ( message < 0 ) throw new Error( validateProp + ' has no error message. Check makeValidable()' );
-  return message;
+const defaultErrorMessages = {
+  'email' : 'forms.errors.email',
+  'alpha-num' : 'forms.errors.alphaNum',
+  'required' : 'forms.errors.required',
+  'num' : 'forms.errors.num',
+  'int' : 'forms.errors.integer_only',
+  'float' : 'forms.errors.num',
+  'enabled': 'forms.errors.no_enabled_value',
+  'phone' : 'forms.errors.phone',
+  'min:6' : 'forms.errors.min_size6',
+  'fileSize': 'forms.errors.file_too_large',
+  'isImage' : 'forms.errors.not_image',
+  'isURL' : 'forms.errors.URL_not_valid',
+  'isDocOrImageFile': 'forms.errors.not_doc_or_image',
+  file_too_large2: 'forms.errors.file_too_large2',
 }
 
 const makeValidator = (validator, error) => (value) =>  validator(value) || ({
@@ -93,6 +87,7 @@ export default (Comp, opt = {}) => class Validable extends Component {
       value: props.value || undefined
     }
     this._options = Object.assign({}, defaultOpt, opt);
+    this._errorMessages = Object.assign({}, defaultErrorMessages, opt.errorMessages)
   }
 
   reachedMaxChars(value) {
@@ -143,7 +138,7 @@ export default (Comp, opt = {}) => class Validable extends Component {
       // Create an array of validator function according to the validate prop rules
       validators = this.props.validate.map((prop) => makeValidator(
         getValidationFunction(prop),
-        getErrorMsgId(prop))
+        this._errorMessages[prop]
       );
 
       // if this._options.defaultValidator.function exits then use it
@@ -154,12 +149,6 @@ export default (Comp, opt = {}) => class Validable extends Component {
             this._options.defaultValidator.errorMessage
           )
         )
-      }
-
-      if (this.props.validate.indexOf('required') === -1 ) {
-        // If a field is not requiered but has other validation on it,
-        // it should not trigger validation when no value are filled in
-        this.validator = fp.compose(chain( validators ), makeDownstreamValidatorAgreable)
       }
 
     // Else we make an agreableValidator. This allow to keep behvior in
@@ -177,8 +166,14 @@ export default (Comp, opt = {}) => class Validable extends Component {
       }
     }
 
-    // Chain all validators
-    this.validator = chain( validators );
+    if (this.props.validate || this.props.validate.indexOf('required') === -1 ) {
+      // If a field is not requiered but has other validation on it,
+      // it should not trigger validation when no value are filled in
+      this.validator = fp.compose(chain( validators ), makeDownstreamValidatorAgreable)
+    } else {
+      // Chain all validators
+      this.validator = chain( validators );
+    }
   }
 
   propagateValue(value) {
