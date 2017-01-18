@@ -87,7 +87,7 @@ export default (Comp, opt = {}) => class Validable extends Component {
       value: props.value || undefined
     }
     this._options = Object.assign({}, defaultOpt, opt);
-    this._errorMessages = Object.assign({}, defaultErrorMessages, opt.errorMessages)
+    this._errorMessages = opt && opt.errorMessages ? Object.assign({}, defaultErrorMessages, opt.errorMessages) : defaultErrorMessages;
   }
 
   reachedMaxChars(value) {
@@ -205,7 +205,7 @@ export default (Comp, opt = {}) => class Validable extends Component {
           getValue={ () => this.getValue() }
           getErrors={ () => this.getErrors() }/>
 
-        { maxChars ? renderCharCount(maxChars, value.length) : '' }
+        { maxChars && value ? renderCharCount(maxChars, value.length) : '' }
         { showErrors ? renderErrorMessage(errors) : '' }
       </div>
     )
