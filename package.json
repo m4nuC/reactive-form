@@ -3,6 +3,10 @@
   "version": "0.2.1",
   "description": "Simple form management for react",
   "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m4nuC/reactive-form"
+  },
   "scripts": {
     "dist:lib": "./node_modules/babel-cli/bin/babel.js src --out-dir lib",
     "dist": "npm run build:lib && npm run build:umd && npm run build:umd:min && node ./prepublish",
@@ -13,7 +17,7 @@
     "test": "./node_modules/mocha/bin/mocha  --compilers js:babel-core/register ./_tests/index.js --harmony -u bdd -R spec --watch"
   },
   "author": "Emmanuel Chappat <emmanuel.chappat@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.16.0",
     "babel-core": "^6.7.7",
