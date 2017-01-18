@@ -1,12 +1,17 @@
 # Barebone Form Validation for ReactJS
 
 
+
 [![NPM version][npm-image]][npm-url]
+[![build status][travis-image]][travis-url]
 [![npm download][download-image]][download-url]
 
-
+[npm-image]: https://img.shields.io/npm/v/reactive-form.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/reactive-from
-[download-url]: https://npmjs.org/package/reactive-from
+[travis-image]: https://img.shields.io/travis/m4nuC/reactive-form.svg?style=flat-square
+[travis-url]: https://travis-ci.org/m4nuC/reactive-from
+[download-image]: https://img.shields.io/npm/dm/reactive-form.svg?style=flat-square
+[download-url]: https://npmjs.org/package/reactive-form
 
 Bring simple validation to any react froms. To use, simply wrap a React input using the `connectInput()` API to instantenously give it validation capabilities (see bellow 1).
 
